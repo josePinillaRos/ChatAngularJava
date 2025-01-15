@@ -1,0 +1,126 @@
+/* Registro Component Styles */
+
+/* General container styling */
+#registro {
+    background-color: #00ffe5; /* Light background for contrast */
+    padding: 40px 0;
+  }
+  
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #ffffff; /* White background for the form */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header styling */
+  h3.text-center {
+    color: #333333; /* Dark text for readability */
+    margin-bottom: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Labels */
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555555;
+  }
+  
+  /* Input fields */
+  .form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .form-group input:focus {
+    border-color: #007BFF; /* Blue border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Placeholder text color */
+  .form-group input::placeholder {
+    color: #999999;
+  }
+  
+  /* Password help text */
+  .form-text {
+    display: block;
+    margin-top: 5px;
+    color: #888888;
+    font-size: 14px;
+  }
+  
+  /* Submit button */
+  .btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745; /* Green background */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  .btn:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+  }
+  
+  /* Error message styling */
+  .alert {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+  }
+  
+  /* Link styling */
+  .text-center a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .text-center a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 576px) {
+    .container {
+      padding: 20px;
+    }
+  
+    h3.text-center {
+      font-size: 1.5rem;
+    }
+  
+    .btn {
+      font-size: 16px;
+    }
+  }
+  
+  

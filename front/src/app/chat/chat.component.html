@@ -1,0 +1,58 @@
+<div class="container mt-4">
+  <div class="input-group mb-3">
+    <div class="mb-3">
+      <p>Has iniciado sesión como: <strong>{{ username }}</strong></p>
+    </div>
+    <!-- Sin input de nick, sólo los botones -->
+    <button
+      *ngIf="!conectado"
+      class="btn btn-outline-primary"
+      type="button"
+      (click)="conectar()"
+    >
+      Conectar
+    </button>
+    <button
+      *ngIf="conectado"
+      class="btn btn-outline-danger"
+      type="button"
+      (click)="desconectar()"
+    >
+      Desconectar
+    </button>
+  </div>
+
+  <h2>Chat en tiempo real</h2>
+
+  <label>Selecciona usuario para chatear privado:</label>
+  <select [(ngModel)]="seleccionado" (change)="cargarConversacionCon(seleccionado)">
+    <option *ngFor="let u of listaUsuarios" [value]="u.username">
+      {{u.username}}
+    </option>
+  </select>
+  
+
+  <div class="mensajes border p-3 mb-3" style="max-height: 400px; overflow-y: auto;">
+    <div *ngFor="let msg of mensajes" [style.color]="msg.color">
+      <strong>{{ msg.username }} ({{ msg.autor }}):</strong>
+      {{ msg.contenido }}
+      <small class="text-muted ms-2">{{ msg.fechaEnvio | date: 'short' }}</small>
+    </div>
+  </div>
+
+  <div class="input-group mt-3">
+    <input
+      class="form-control"
+      [(ngModel)]="mensaje"
+      placeholder="Escribe tu mensaje aquí"
+      [disabled]="!conectado"
+    />
+    <button
+      class="btn btn-outline-success"
+      (click)="enviarMensaje()"
+      [disabled]="!conectado || mensaje.trim() === ''"
+    >
+      Enviar
+    </button>
+  </div>
+</div>
