@@ -13,34 +13,21 @@ import java.time.LocalDateTime;
 public class ChatControllers {
 
     @Autowired
-    private MensajeRepository mensajeRepository;
-
-    @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
-    /**
-     * Método para mensajes privados.
-     * El front siempre hará stompClient.send("/app/mensajePrivado", ...).
-     * y se suscribirá a "/user/queue/mensajes".
-     */
+    @Autowired
+    private MensajeRepository mensajeRepository;
+
     @MessageMapping("/mensajePrivado")
-    public void mensajePrivado(Mensaje mensaje) {
-        System.out.println("MENSAJE PRIVADO ENVIADO");
+    public void manejarMensajePrivado(Mensaje mensaje) {
+        System.out.println("Mensaje enviado a: /topic/privado/" + mensaje.getDestinatario());
+
         mensaje.setFechaEnvio(LocalDateTime.now());
-
-        if (mensaje.getUsername() == null || mensaje.getUsername().isEmpty()) {
-            mensaje.setUsername("UsuarioAnónimo");
-        }
-
-        // Guardamos el mensaje en la base
         Mensaje mensajeGuardado = mensajeRepository.save(mensaje);
 
-        // Enviar solo al destinatario a "/user/<destinatario>/queue/mensajes"
-        messagingTemplate.convertAndSend(
-                "/user/" + mensaje.getDestinatario() + "/queue/mensajes",
-                mensajeGuardado
-        );
+        String destino = "/topic/privado/" + mensaje.getDestinatario();
+        messagingTemplate.convertAndSend(destino, mensajeGuardado);
 
-        System.out.println("Mensaje privado guardado: " + mensajeGuardado);
+        System.out.println("Mensaje enviado a: " + destino);
     }
 }

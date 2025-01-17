@@ -37,18 +37,6 @@ export class ChatComponent implements OnInit {
     const storedUsername = localStorage.getItem('username');
     this.username = storedUsername ? storedUsername : 'UsuarioSinLogin';
 
-    // Suscribirse a mensajes entrantes
-    this.chatService.getMessages().subscribe((mensaje) => {
-      console.log('Mensaje privado recibido:', mensaje);
-      // Verificar si es parte de la conversación actual
-      if (this.esDeLaConversacion(mensaje)) {
-        this.mensajes.push(mensaje);
-      } else {
-        // Puedes ignorar o mostrar alerta, depende de tu UX
-        console.log('Mensaje es de otra conversación, no se muestra en este chat');
-      }
-    });
-
     // Cargar lista de usuarios
     this.userService.getAllUsers().subscribe({
       next: (usuarios) => {
@@ -102,6 +90,7 @@ export class ChatComponent implements OnInit {
       contenido: this.mensaje,
     };
     this.chatService.sendMessage(nuevoMensaje);
+    this.mensajes.push(nuevoMensaje)
     this.mensaje = '';
 
     

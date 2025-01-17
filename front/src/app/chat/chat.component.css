@@ -1,15 +1,147 @@
+/* Contenedor principal */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #333;
+  /* Opcional: un ligero padding alrededor */
+  padding: 10px;
+}
+
+/* Título del chat */
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #ffffff;            /* Texto en blanco */
+  background-color: #075E54; /* Verde característico de WhatsApp */
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: normal;
+}
+
+/* Bloque con la info de usuario y botones de conectar/desconectar */
+.input-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #075E54; /* Mismo verde del encabezado */
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* Etiqueta “Has iniciado sesión como” */
+.input-group p {
+  margin: 0 10px 0 0;
+  font-weight: 500;
+  color: #fff; /* Texto claro para resaltar sobre verde */
+}
+
+/* Botones de Conectar / Desconectar */
+.input-group button {
+  margin-right: 10px;
+  background-color: #25D366; /* Verde más claro (similar a botón de WhatsApp) */
+  border: none;
+  color: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover y foco para botones */
+.input-group button:hover,
+.input-group button:focus {
+  background-color: #128C7E; /* Un tono más oscuro */
+  outline: none;
+}
+
+/* Select de usuarios */
+select {
+  margin: 10px 0 10px 10px;
+  padding: 6px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: #fff;
+}
+
+/* Contenedor de mensajes (similar fondo a WhatsApp) */
 .mensajes {
-    border: 1px solid #ccc;
-    padding: 10px;
-    max-height: 300px;
-    overflow-y: auto;
-    background-color: #f9f9f9;
-  }
- 
-  .mensajes div {
-    margin-bottom: 5px;
-  }
- 
-  .input-group {
-    margin-top: 10px;
-  }
+  background-color: #ECE5DD; /* Tono característico de fondo de WhatsApp */
+  border-radius: 6px;
+  padding: 15px;
+  max-height: 400px; 
+  overflow-y: auto;  
+  border: 1px solid #CCC; /* Borde sutil */
+}
+
+/* Burbujas de mensajes */
+.mensajes > div {
+  background-color: #ffffff;  /* Fondo claro para el mensaje */
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  line-height: 1.4;
+  max-width: 80%; /* Se ve más tipo “burbuja” */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  /* Opcional: si quisieras simular derecha/izquierda según autor,
+     podrías usar clases extras (e.g., .mine, .other) con float: right/left */
+}
+
+/* Nombre de usuario (username) en color verde */
+.mensajes > div > strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #075E54; /* Verde WhatsApp */
+  font-weight: bold;
+}
+
+/* Fechas con letra más pequeña y color gris */
+.mensajes .text-muted {
+  font-size: 0.8rem;
+  color: #718096;
+}
+
+/* Contenedor del input + botón de enviar */
+.input-group.mt-3 {
+  margin-top: 20px;
+  display: flex;
+  align-items: stretch;
+}
+
+/* Estilizar el input donde se escribe el mensaje */
+.input-group.mt-3 .form-control {
+  border-radius: 4px 0 0 4px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  padding: 8px;
+  outline: none;
+}
+
+/* Efecto de foco en el input */
+.input-group.mt-3 .form-control:focus {
+  border-color: #25D366;
+  outline: 2px solid #B2F5EA; 
+  outline-offset: 0;
+}
+
+/* Botón de enviar */
+.input-group.mt-3 .btn {
+  background-color: #25D366;  /* Botón verde tipo WhatsApp */
+  border: none;
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover y foco para el botón de enviar */
+.input-group.mt-3 .btn:hover,
+.input-group.mt-3 .btn:focus {
+  background-color: #128C7E;
+  outline: none;
+}

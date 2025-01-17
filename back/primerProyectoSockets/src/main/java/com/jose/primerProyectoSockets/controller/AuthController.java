@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -38,15 +40,21 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        // 1) Comprobar si ya existe el usuario
+        // 1) Verificar si el usuario ya existe
         if (usuarioService.existeUsuario(request.username)) {
+            // Retornamos un objeto JSON con un campo "message"
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body("El usuario '" + request.username + "' ya existe en la base de datos.");
+                    .body(Collections.singletonMap("message",
+                            "El usuario '" + request.username + "' ya existe en la base de datos."));
         }
-        // 2) Registrar
+
+        // 2) Registrar usuario
         usuarioService.registrarUsuario(request.username, request.password);
-        return ResponseEntity.ok("Usuario registrado exitosamente");
+
+        // También devolvemos un objeto JSON con mensaje de éxito
+        return ResponseEntity.ok(Collections.singletonMap("message", "Usuario registrado exitosamente"));
     }
+
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {

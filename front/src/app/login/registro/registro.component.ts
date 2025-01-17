@@ -50,7 +50,8 @@ export class RegistroComponent {
         this.errorMessage = '';
       },
       error: (err) => {
-        this.errorMessage = err.error.message || 'Exito al registrar el usuario.';
+        console.error('Error al registrar:', err);
+        this.errorMessage = err.error.message || 'Error al registrar el usuario.';
         Swal.fire({
           title: 'Error',
           text: this.errorMessage,

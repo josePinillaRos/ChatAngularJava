@@ -28,10 +28,13 @@ export class ChatService {
       console.log('Conectado: ' + frame);
       this.isConnectedSubject.next(true);
 
-      // Única suscripción: mensajes privados para ESTE usuario
-      this.stompClient.subscribe('/user/queue/mensajes', (message) => {
-        this.messageSubject.next(JSON.parse(message.body));
+      const username = localStorage.getItem('username') || 'SinNombre';
+      console.log('Suscribiéndose a /topic/privado/' + username);
+      this.stompClient.subscribe('/topic/privado/' + username, (message) => {
+          console.log('Mensaje recibido:', message.body);
+          this.messageSubject.next(JSON.parse(message.body));
       });
+      
     }, (error) => {
       console.error('Error al conectar:', error);
     });

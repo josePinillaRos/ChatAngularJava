@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   register(username: string, password: string): Observable<any> {
-    const body = { username, password }; // <-- Cambiamos a 'username' en vez de 'usuario'
+    const body = { username, password }; 
     return this.http.post(`${this.baseUrl}/register`, body);
   }
 
