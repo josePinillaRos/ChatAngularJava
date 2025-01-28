@@ -10,50 +10,74 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * class UsuarioService
+ *
+ * Servicio que proporciona la lógica de negocio relacionada con los usuarios.
+ * Incluye métodos para registrar usuarios con contraseñas encriptadas, verificar la existencia de usuarios,
+ * validar credenciales para el inicio de sesión y obtener todos los usuarios de la base de datos.
+ *
+ * Author: Jose Pinilla
+ */
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // Inyectamos el bean definido en PasswordConfig
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder; // Bean inyectado para gestionar la encriptación de contraseñas
 
     /**
-     * Registra (crea) un usuario con la contraseña encriptada.
+     * Registra un nuevo usuario en la base de datos con la contraseña encriptada.
+     *
+     * @param username el nombre de usuario único.
+     * @param password la contraseña en texto plano que será encriptada antes de guardarse.
+     * @return el usuario registrado con la contraseña encriptada.
      */
     public Usuarios registrarUsuario(String username, String password) {
-        String encodedPassword = passwordEncoder.encode(password);
-        Usuarios usuario = new Usuarios(username, encodedPassword);
-        return usuarioRepository.save(usuario);
+        String encodedPassword = passwordEncoder.encode(password); // Encripta la contraseña
+        Usuarios usuario = new Usuarios(username, encodedPassword); // Crea una nueva instancia de usuario
+        return usuarioRepository.save(usuario); // Guarda el usuario en la base de datos
     }
 
     /**
-     * Verifica si el username ya está en la base de datos.
+     * Verifica si un nombre de usuario ya existe en la base de datos.
+     *
+     * @param username el nombre de usuario a verificar.
+     * @return true si el usuario existe, false en caso contrario.
      */
     public boolean existeUsuario(String username) {
         return usuarioRepository.findByUsername(username).isPresent();
     }
 
     /**
-     * Para el login: comprueba si existe el usuario y si la contraseña coincide.
+     * Valida las credenciales para el inicio de sesión.
+     * Comprueba si el usuario existe y si la contraseña proporcionada coincide con la almacenada.
+     *
+     * @param username el nombre de usuario.
+     * @param password la contraseña en texto plano proporcionada para validación.
+     * @return true si las credenciales son válidas, false en caso contrario.
      */
     public boolean validarCredenciales(String username, String password) {
         Optional<Usuarios> usuarioOpt = usuarioRepository.findByUsername(username);
 
+        // Retorna false si el usuario no existe
         if (usuarioOpt.isEmpty()) {
-            return false;  // no existe => no valida
+            return false;
         }
 
-        // Si existe, comprobar el password hasheado
+        // Valida la contraseña proporcionada contra la contraseña encriptada almacenada
         return passwordEncoder.matches(password, usuarioOpt.get().getPassword());
     }
 
     /**
-     * Devuelve todos los usuarios de la base de datos
+     * Obtiene todos los usuarios registrados en la base de datos.
+     *
+     * @return una lista de usuarios.
      */
     public List<Usuarios> findAllUsers() {
         return usuarioRepository.findAll();
     }
 }
+
